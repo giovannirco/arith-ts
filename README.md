@@ -221,7 +221,7 @@ src/config.ts               the environment variables
 src/main.ts                 listen, drain on SIGTERM, exit code
 web/                        index.html, style.css, app.js
 test/                       the table of cases, the HTTP contract, the process
-Dockerfile                  node build, distroless/nodejs runtime, uid 65532
+Dockerfile                  node:alpine build and runtime, npm removed, uid 65532
 deploy/helm/arith-ts        the chart
 deploy/kustomize            base, components, an example overlay
 Makefile                    test, cover, lint, run, image, push, deploy, upgrade, remove
