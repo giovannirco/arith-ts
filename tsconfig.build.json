@@ -1,0 +1,12 @@
+{
+  // The image runs JavaScript: src/*.ts compiled to dist/*.js, with the .ts
+  // import specifiers rewritten to .js.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "allowImportingTsExtensions": false,
+    "rootDir": "src",
+    "outDir": "dist"
+  },
+  "include": ["src"]
+}

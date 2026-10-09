@@ -1,0 +1,22 @@
+{
+  // Type checking for src/ and test/. Node runs the .ts files as they are
+  // (type stripping), so only syntax that erases cleanly is allowed.
+  "compilerOptions": {
+    "target": "es2024",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "lib": ["es2024"],
+    "types": ["node"],
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+    "skipLibCheck": true,
+    "noEmit": true
+  },
+  "include": ["src", "test"]
+}
