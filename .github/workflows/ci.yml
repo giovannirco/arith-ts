@@ -47,6 +47,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      # The chart carries its own copy of the license; keep it identical.
+      - run: cmp LICENSE deploy/helm/arith-ts/LICENSE
       - run: helm lint deploy/helm/arith-ts
       - run: helm lint deploy/helm/arith-ts -f deploy/helm/arith-ts/ci/all-on-values.yaml
       - run: helm template arith deploy/helm/arith-ts -n arith > /dev/null

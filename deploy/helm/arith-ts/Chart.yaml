@@ -13,3 +13,15 @@ sources:
 maintainers:
   - name: Giovanni Coutinho
     url: https://github.com/giovannirco
+annotations:
+  artifacthub.io/license: MIT
+  artifacthub.io/links: |
+    - name: source
+      url: https://github.com/giovannirco/arith-ts
+  # The tag follows appVersion; CI rewrites both when it packages a release.
+  artifacthub.io/images: |
+    - name: arith
+      image: ghcr.io/giovannirco/arith-ts:1
+      platforms:
+        - linux/amd64
+        - linux/arm64
