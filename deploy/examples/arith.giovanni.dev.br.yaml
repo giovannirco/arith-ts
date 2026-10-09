@@ -2,8 +2,14 @@
 # Gateway (Gateway API), Grafana's k8s-monitoring Alloy and the Prometheus
 # Operator CRDs. Every optional piece of the chart is on here.
 #
-#   helm install arith deploy/helm/arith-ts --namespace arith --create-namespace \
+# The published chart installs the image it was released with:
+#
+#   helm upgrade --install arith oci://ghcr.io/giovannirco/charts/arith-ts \
+#     --version <chart version> --namespace arith --create-namespace \
 #     -f deploy/examples/arith.giovanni.dev.br.yaml --wait
+#
+# The chart in this repository defaults to image tag 1, for the README
+# walkthrough; with it, add --set image.tag=<the current release>.
 
 env:
   ARITH_LOG_LEVEL: info
