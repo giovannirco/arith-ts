@@ -1,0 +1,13 @@
+# GitHub Actions only. npm is left out on purpose: a package bump belongs in a
+# commit that also updates package-lock.json and passes make test, made by hand.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: ci
+    groups:
+      actions:
+        patterns: ["*"]
