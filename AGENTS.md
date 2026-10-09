@@ -21,7 +21,7 @@ src/config.ts             environment variables, parsed once
 src/main.ts               environment in, signals in, exit code out
 web/                      index.html, style.css, app.js; no build step
 test/                     the table of cases, the HTTP contract, the process
-Dockerfile                node build stage, distroless/nodejs runtime, uid 65532
+Dockerfile                node:alpine build and runtime, npm removed, uid 65532
 deploy/helm/arith-ts      chart: Deployment, Service, optional Ingress, HTTPRoute,
                           NetworkPolicy, CiliumNetworkPolicy, ServiceMonitor, a helm test
 deploy/kustomize          base (namespace, deployment, service), one component per
