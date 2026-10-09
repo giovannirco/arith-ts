@@ -4,7 +4,7 @@ description: Integer arithmetic over HTTP. Four endpoints, a page, metrics, trac
 type: application
 # The chart's own semver. Bump it whenever a template or a default changes;
 # CI refuses to publish a version that is already on GHCR.
-version: 1.0.0
+version: 1.0.1
 # The image tag installed by default. Override with --set image.tag=<tag>.
 # A numeric git tag packages the chart with appVersion set to that tag.
 appVersion: "1"
