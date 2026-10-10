@@ -1,5 +1,6 @@
-# GitHub Actions only. npm is left out on purpose: a package bump belongs in a
-# commit that also updates package-lock.json and passes make test, made by hand.
+# GitHub Actions and the Dockerfile's base images, weekly. npm is left out on
+# purpose: a package bump belongs in a commit that also updates
+# package-lock.json and passes make test, made by hand.
 version: 2
 updates:
   - package-ecosystem: github-actions
@@ -11,3 +12,18 @@ updates:
     groups:
       actions:
         patterns: ["*"]
+
+  # The base images are pinned by tag and digest. A new Node 24 patch release,
+  # or a rebuilt image under the same tag (an Alpine security fix), arrives as
+  # a pull request that CI tests like any other change. Node's major version
+  # is the project's decision, not the bot's. CI fails until .node-version
+  # moves with the image, so tests and image keep running the same Node.
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: build
+    ignore:
+      - dependency-name: node
+        update-types: ["version-update:semver-major"]
