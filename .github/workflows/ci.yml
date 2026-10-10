@@ -68,8 +68,8 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       # One version per release: package.json, the chart's version and
-      # appVersion, its Artifact Hub image and the Kustomize tag all carry it,
-      # and on a release tag so does the tag.
+      # appVersion, its Artifact Hub image, the Kustomize tag and the docs all
+      # carry it, and on a release tag so does the tag.
       - name: Every version agrees
         shell: bash
         run: |
@@ -83,6 +83,13 @@ jobs:
           check "Chart.yaml artifacthub.io/images" "$(yq '.annotations["artifacthub.io/images"] | from_yaml | .[0].image' "$chart")" "$IMAGE:$version"
           check "kustomize base newTag" "$(yq '.images[0].newTag' deploy/kustomize/base/kustomization.yaml)" "$version"
           if [[ "$GITHUB_REF" == refs/tags/v* ]]; then check "git tag" "$GITHUB_REF_NAME" "v$version"; fi
+          # The docs name the release too: a version next to the image, a
+          # chart, an install or a tag must be this one.
+          while IFS=: read -r file line match; do
+            echo "::error file=$file,line=$line::$file names $match, expected $version"; failed=1
+          done < <(grep -noE '(arith-ts:|--version |[^a-z]v|chart `|appVersion `|[(]`)[0-9]+[.][0-9]+[.][0-9]+' \
+                     README.md CONTRIBUTING.md deploy/helm/arith-ts/README.md \
+                   | grep -vE "[^0-9.]${version//./[.]}\$")
           exit "$failed"
       # The chart carries its own copy of the license; keep it identical.
       - run: cmp LICENSE deploy/helm/arith-ts/LICENSE
