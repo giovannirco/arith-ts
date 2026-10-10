@@ -70,7 +70,7 @@ kind load docker-image ghcr.io/giovannirco/arith-ts:dev            # kind (add -
 helm upgrade arith deploy/helm/arith-ts --namespace arith --set image.tag=dev --wait
 ```
 
-On a cluster that pulls from a registry, build and push to yours instead: `make image push IMAGE=registry.example.com/arith-ts TAG=dev`, then add `--set image.repository=registry.example.com/arith-ts` to the `helm upgrade`.
+On a cluster that pulls from a registry, build and push to yours instead: `make image push IMAGE=registry.example.com/arith-ts TAG=dev` (add `PLATFORM=linux/amd64` when your machine and the cluster's nodes differ), then add `--set image.repository=registry.example.com/arith-ts` to the `helm upgrade`.
 
 Ask again:
 
