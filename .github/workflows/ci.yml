@@ -91,6 +91,15 @@ jobs:
                      README.md CONTRIBUTING.md deploy/helm/arith-ts/README.md \
                    | grep -vE "[^0-9.]${version//./[.]}\$")
           exit "$failed"
+      # Tests run on the Node in .node-version; the image must ship the same
+      # one, so a base image bump has to bring .node-version along.
+      - name: The image runs the Node the tests run
+        shell: bash
+        run: |
+          want="$(cat .node-version)"
+          for from in $(grep -oE '^FROM node:[0-9]+\.[0-9]+\.[0-9]+' Dockerfile | cut -d: -f2); do
+            [ "$from" = "$want" ] || { echo "::error file=Dockerfile::FROM node:$from, but .node-version is $want"; exit 1; }
+          done
       # The chart carries its own copy of the license; keep it identical.
       - run: cmp LICENSE deploy/helm/arith-ts/LICENSE
       - run: helm lint deploy/helm/arith-ts
