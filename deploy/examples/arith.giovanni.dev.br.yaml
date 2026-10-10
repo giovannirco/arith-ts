@@ -1,15 +1,11 @@
-# The values behind https://arith.giovanni.dev.br, a cluster with Cilium, Envoy
-# Gateway (Gateway API), Grafana's k8s-monitoring Alloy and the Prometheus
-# Operator CRDs. Every optional piece of the chart is on here.
-#
-# The published chart installs the image it was released with:
+# The values behind https://arith-ts.giovanni.dev.br (and arith.giovanni.dev.br),
+# a cluster with Cilium, Envoy Gateway (Gateway API), Grafana's k8s-monitoring
+# Alloy and the Prometheus Operator CRDs. Every optional piece of the chart is
+# on here; none of them is part of the default install.
 #
 #   helm upgrade --install arith oci://ghcr.io/giovannirco/charts/arith-ts \
-#     --version <chart version> --namespace arith --create-namespace \
+#     --version <version> --namespace arith --create-namespace \
 #     -f deploy/examples/arith.giovanni.dev.br.yaml --wait
-#
-# The chart in this repository defaults to image tag 1, for the README
-# walkthrough; with it, add --set image.tag=<the current release>.
 
 env:
   ARITH_LOG_LEVEL: info
@@ -27,6 +23,7 @@ env:
 httpRoute:
   enabled: true
   hostnames:
+    - arith-ts.giovanni.dev.br
     - arith.giovanni.dev.br
   parentRefs:
     - name: envoy-internal
