@@ -3,8 +3,8 @@
 # and chart installed and tested on kind, and an image build for both
 # architectures.
 #
-# One version per release. A tag v<version> (git tag v1.1.0 && git push origin
-# v1.1.0) publishes ghcr.io/giovannirco/arith-ts:<version> and the chart
+# One version per release. A tag v<version> (git tag v$(make version) && git
+# push origin v$(make version)) publishes ghcr.io/giovannirco/arith-ts:<version> and the chart
 # <version>, whose appVersion is the same, to oci://ghcr.io/giovannirco/charts.
 # The tag must match package.json and Chart.yaml, and the chart job refuses a
 # version that is already published. Pushes to master and pull requests from

@@ -80,4 +80,4 @@ A second service. A database. Authentication. A service mesh. An Ingress or a Lo
 - `make run`, then every row of the README's API table returns the documented body, and `/` renders.
 - `make image` produces an image that serves on 8000 as uid 65532 with a read-only root.
 - `helm lint`, `helm template` with every toggle on, and `kubectl kustomize deploy/kustomize/overlays/example` all render and dry-run apply.
-- On a clean kind cluster, following only the README: deploy, request from a pod, change `sum`, redeploy, request again, delete; namespace gone.
+- On a clean cluster (kind, or a scratch namespace on a real one), following only the README: deploy, request from a pod, change `sum`, redeploy, request again, delete; namespace gone.

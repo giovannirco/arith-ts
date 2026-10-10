@@ -136,7 +136,9 @@ The public instance at <https://arith-ts.giovanni.dev.br> is one such install: `
 
 ## Versions and releases
 
-One version per release, semver, written in `package.json` and repeated in `Chart.yaml` (`version` and `appVersion`) and the Kustomize base; CI fails if they disagree. Pushing a tag `v1.1.0` makes CI publish the image `ghcr.io/giovannirco/arith-ts:1.1.0` and the chart `oci://ghcr.io/giovannirco/charts/arith-ts` version `1.1.0`, which installs that image by default. CI never republishes a version. Commits on master (and pull requests from this repository) also get an image `:sha-<commit>`. There is no `latest` and no bare-integer tag.
+One version per release, semver, written in `package.json` and repeated in `Chart.yaml` (`version` and `appVersion`), the Kustomize base and this README; CI fails if any of them disagree. The current release is `v1.1.0`: image `ghcr.io/giovannirco/arith-ts:1.1.0` and chart `oci://ghcr.io/giovannirco/charts/arith-ts` version `1.1.0`, which installs that image by default. Commits on master (and pull requests from this repository) also get an image `:sha-<commit>`. CI never publishes `latest` or a bare-integer tag, and never republishes a version.
+
+To release: bump the version in all of those places in one commit, merge it, then `git tag v$(make version) && git push origin v$(make version)`.
 
 ```sh
 helm install arith oci://ghcr.io/giovannirco/charts/arith-ts --version 1.1.0 --namespace arith --create-namespace
