@@ -58,9 +58,9 @@ Both Helm and Kustomize must produce the same default objects: a Deployment with
 
 Everything else is a toggle that is off by default: Ingress, HTTPRoute, NetworkPolicy, CiliumNetworkPolicy, ServiceMonitor, OTLP export. A toggle in `values.yaml` has a matching component under `deploy/kustomize/components`. When you add a knob to one, add it to the other.
 
-The README has four pasteable sections, and they are the acceptance test: deploy the public image; request the worked example from a pod in the namespace; change `sum`, build tag `2`, roll it out, request again; delete the namespace. Run them on a clean kind cluster before calling a change done.
+The README has four pasteable sections, and they are the acceptance test: deploy the public image; request the worked example from a pod in the namespace; change `sum`, build tag `dev`, roll it out, request again; delete the namespace. Run them on a clean cluster (kind, or a scratch namespace on a real one) before calling a change done.
 
-Image: `ghcr.io/giovannirco/arith-ts`. Tags are plain integers (`1`, `2`), so a rollout is `--set image.tag=2` or `kubectl set image` with one variable. CI publishes a multi-arch image and the chart from a git tag. The Makefile builds the operator's local tag. The process writes nothing to disk, so the root filesystem stays read-only without an `emptyDir`.
+Image: `ghcr.io/giovannirco/arith-ts`. One semver version per release, written in `package.json` and repeated in `Chart.yaml` (`version`, `appVersion`, the Artifact Hub image) and the Kustomize base; CI fails if they disagree. A tag `v<version>` makes CI publish the multi-arch image `:<version>` and the chart `<version>`. Master and same-repository pull requests publish `:sha-<commit>`. Never a bare integer, never `latest`. Local builds use a tag no release uses, such as `dev`. The process writes nothing to disk, so the root filesystem stays read-only without an `emptyDir`.
 
 ## Tests
 

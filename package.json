@@ -1,6 +1,6 @@
 {
   "name": "arith",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Integer arithmetic over HTTP: four endpoints, a page, metrics, traces and logs.",
   "license": "MIT",
   "private": true,
