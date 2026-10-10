@@ -9,6 +9,9 @@ RELEASE_IMAGE := ghcr.io/giovannirco/arith-ts
 VERSION   := $(shell sed -n 's/^  "version": "\(.*\)",$$/\1/p' package.json)
 IMAGE     ?= $(RELEASE_IMAGE)
 TAG       ?= $(VERSION)
+# Empty builds for this machine; linux/amd64 builds for a cluster of that
+# architecture from, say, an arm64 laptop.
+PLATFORM  ?=
 NAMESPACE ?= arith
 RELEASE   ?= arith
 CHART     ?= deploy/helm/arith-ts
@@ -34,8 +37,8 @@ lint: ## ESLint and the type check, as CI runs them
 run: ## Serve on :8000 with readable logs
 	ARITH_LOG_FORMAT=text node src/main.ts
 
-image: ## Build $(IMAGE):$(TAG) for this machine's architecture
-	docker build -t $(IMAGE):$(TAG) .
+image: ## Build $(IMAGE):$(TAG), for this machine's architecture unless PLATFORM is set
+	docker build $(if $(PLATFORM),--platform $(PLATFORM)) -t $(IMAGE):$(TAG) .
 
 push: ## Push $(IMAGE):$(TAG) to your own registry (set IMAGE)
 	@if [ "$(IMAGE)" = "$(RELEASE_IMAGE)" ]; then \
