@@ -2,7 +2,7 @@
 
 # Stage 1: compile src/*.ts to dist/*.js and keep only the production
 # dependencies. Everything in node_modules is plain JavaScript.
-FROM node:24.22.0-alpine3.24@sha256:44fce696f38ba8c987c4db89954051000bbd05ffd8d8659ba15ed4a8602e937f AS build
+FROM node:24.22.1-alpine3.24@sha256:06d7adf3e0ef61a13f1d28682726366f97a15aa1888c934d3ecec86c33918b53 AS build
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN --mount=type=cache,target=/root/.npm npm ci
@@ -18,7 +18,7 @@ RUN npm run build && npm prune --omit=dev
 # zlib comes up to 1.3.2-r1 (CVE-2026-85091). distroless/nodejs, the runtime
 # before, has no shell, but its Debian 13 packages (libc6, the gcc 14 runtime,
 # zlib1g) carry known vulnerabilities with no fixed version to move to.
-FROM node:24.22.0-alpine3.24@sha256:44fce696f38ba8c987c4db89954051000bbd05ffd8d8659ba15ed4a8602e937f
+FROM node:24.22.1-alpine3.24@sha256:06d7adf3e0ef61a13f1d28682726366f97a15aa1888c934d3ecec86c33918b53
 RUN apk add --no-cache --upgrade 'zlib>=1.3.2-r1' && \
     rm -rf /usr/local/lib/node_modules /opt/yarn-* \
            /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack \
